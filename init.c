@@ -1,29 +1,56 @@
-#include "ft_printf.h"
-#include "libft/libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aguenel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/16 14:09:38 by aguenel           #+#    #+#             */
+/*   Updated: 2019/12/16 14:09:40 by aguenel          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-t_flags     *init_flags(void)
+#include "printf.h"
+
+t_p		*init_p(const char *src)
 {
-    t_flags *flags;
+	t_p *p;
 
-    if (!(flags = (t_flags *)malloc(sizeof(t_flags))))
-        return (NULL);
-    flags->zero = false;
-    flags->moins = false;
-    flags->width = 0;
-    flags->precision = -1;
-    flags->etoile = false;
-    return (flags);
+	if (!(p = (t_p *)malloc(sizeof(t_p))))
+		return (NULL);
+	p->i = 0;
+	p->src = (char *)src;
+	p->res = 0;
+	p->param = NULL;
+	p->zero = false;
+	p->moins = false;
+	p->width = 0;
+	p->precision = -1;
+	p->etoile = false;
+	p->pointetoile = false;
+	p->strprecision = NULL;
+	p->strwidth = NULL;
+	p->nbrn = false;
+	p->basex = "0123456789abcdef\0";
+	p->basexx = "0123456789ABCDEF\0";
+	p->count = 0;
+	p->b_0 = false;
+	p->params = "cspdiuxX%\0";
+	return (p);
 }
 
-t_print *init_print()
+void	*init_f(t_p *p)
 {
-    t_print *print;
-
-    if (!(print = (t_print *)malloc(sizeof(t_print))))
-        return (NULL);
-    print->i = 0;
-    print->str = NULL;
-    print->int_return = 0;
-    print->params = NULL;
-    return (print);
+	p->zero = false;
+	p->moins = false;
+	p->width = 0;
+	p->precision = -1;
+	p->etoile = false;
+	p->pointetoile = false;
+	p->strprecision = NULL;
+	p->strwidth = NULL;
+	p->nbrn = false;
+	p->count = 0;
+	p->nb_param = -1;
+	return (p);
 }
