@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printf_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguenel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rosanche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/16 18:27:54 by aguenel           #+#    #+#             */
-/*   Updated: 2019/12/16 18:42:52 by aguenel          ###   ########.fr       */
+/*   Created: 2020/01/02 20:43:34 by rosanche          #+#    #+#             */
+/*   Updated: 2020/01/03 15:35:04 by rosanche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		guess_width(t_p *p)
 	v = 0;
 	while (ft_isdigit((int)p->src[p->i + v]))
 		v++;
-	if (!(str = (char *)malloc(sizeof(char) * v + 1))) //free str avant de le renvoyer
+	if (!(str = ft_strnewm(v + 1)))
 		return (-1);
 	v = 0;
 	while (ft_isdigit((int)p->src[p->i + v]))
@@ -30,10 +30,8 @@ int		guess_width(t_p *p)
 	}
 	p->i += v - 1;
 	v = ft_atoi(str);
-	// free(str);
-	// str = NULL;
-	// ft_strdel(&str);
-	//ft_putstr_fd(ft_itoa(v), 1);
+	free(str);
+	str = NULL;
 	return (v);
 }
 
@@ -51,22 +49,18 @@ void	find_flags(t_p *p, va_list *args)
 				p->precision = -1;
 		}
 		else
-			p->precision = guess_width(p);	
+			p->precision = guess_width(p);
 	}
 	else if (p->src[p->i] == '0')
 		p->zero = true;
 	else if (ft_isdigit((int)p->src[p->i]))
-	{
-			p->width = guess_width(p);	
-	}
+		p->width = guess_width(p);
 	else if (p->src[p->i] == '*')
 	{
 		p->width = va_arg(*args, int);
+		p->moins = p->width < 0 ? true : p->moins;
 		if (p->width < 0)
-		{
 			p->width *= -1;
-			p->moins = true;
-		}
 	}
 }
 
@@ -92,30 +86,20 @@ int		find_flags_and_nbparam(t_p *p, va_list *args)
 	return (res);
 }
 
-void	fill_param(t_p *p,va_list *args)
+void	fill_param(t_p *p, va_list *args)
 {
-	void	(*tabFunc[9])(va_list *, t_p *) = {ft_char, ft_str, ft_p,
-	ft_nbr, ft_nbr, ft_ui, ft_x, ft_xx};
+	void	(*tabfunc[9])(va_list *, t_p *);
 
+	tabfunc[0] = ft_char;
+	tabfunc[1] = ft_str;
+	tabfunc[2] = ft_p;
+	tabfunc[3] = ft_nbr;
+	tabfunc[4] = ft_nbr;
+	tabfunc[5] = ft_ui;
+	tabfunc[6] = ft_x;
+	tabfunc[7] = ft_xx;
 	if (p->nb_param >= 0 && p->nb_param < 8)
-		(*tabFunc[p->nb_param])(args, p);
+		(*tabfunc[p->nb_param])(args, p);
 	else if (p->nb_param == 8)
-		ft_pc(p);
+		ft_percent(p);
 }
-
-// void	ft_diuxx(t_p *p, int nb_param)
-// {
-// 	if (p->precision >= 1 && nb_param != 1)
-// 		ft_memsetpre(p);
-// 	//  printf("param34: %se\n", p->param);
-// 	if (p->width >= 1)
-// 	{
-// 		if ((!p->moins) && (p->zero) && p->precision == -1
-// 			&& p->width > p->precision)
-// 		{
-// 			ft_memsetzero(p);
-// 		}
-// 		else
-// 			ft_memset(p);
-// 	}
-// }

@@ -3,41 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   printf_utils_1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguenel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rosanche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/16 16:36:35 by aguenel           #+#    #+#             */
-/*   Updated: 2019/12/16 16:43:47 by aguenel          ###   ########.fr       */
+/*   Created: 2020/01/02 20:44:08 by rosanche          #+#    #+#             */
+/*   Updated: 2020/01/03 15:34:19 by rosanche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char			*ft_strjoin(char const *s1, char const *s2)
-{
-	char	*r;
-	size_t	i;
-	size_t	j;
-
-	if (s1 == NULL && s2 == NULL)
-		return (NULL);
-	else if (s1 == NULL)
-		return (ft_strdup(s2));
-	else if (s2 == NULL)
-		return (ft_strdup(s1));
-	r = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!r)
-		return (NULL);
-	i = -1;
-	while (s1[++i])
-		r[i] = s1[i];
-	j = -1;
-	while (s2[++j])
-		r[i + j] = s2[j];
-	r[i + j] = '\0';
-	return (r);
-}
-
-char			*ft_strnew(int size)
+char	*ft_strnewm(int size)
 {
 	char	*s;
 	int		i;
@@ -52,12 +27,12 @@ char			*ft_strnew(int size)
 	return (s);
 }
 
-void			ft_putchar_fd(char c, int fd)
+void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 }
 
-void			ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
 	int	size;
 	int	i;
@@ -73,20 +48,24 @@ void			ft_putstr_fd(char *s, int fd)
 	}
 }
 
-// unsigned int	ft_size(long long n)
-// {
-// 	int	i;
+int		ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	else
+		return (0);
+}
 
-// 	i = 0;
-// 	if (n < 0)
-// 	{
-// 		i++;
-// 		n = -n;
-// 	}
-// 	while (n / 10 > 0)
-// 	{
-// 		n = n / 10;
-// 		i++;
-// 	}
-// 	return (i + 1);
-// }
+void	ft_putnstr_fd(char *s, int fd, int size)
+{
+	int	i;
+
+	if (!s || !fd)
+		return ;
+	i = 0;
+	while (i < size)
+	{
+		ft_putchar_fd(s[i], fd);
+		i++;
+	}
+}

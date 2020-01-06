@@ -3,84 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   printf_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguenel <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: rosanche <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/04 14:53:59 by aguenel           #+#    #+#             */
-/*   Updated: 2019/12/16 16:40:28 by aguenel          ###   ########.fr       */
+/*   Created: 2020/01/03 15:05:38 by rosanche          #+#    #+#             */
+/*   Updated: 2020/01/03 15:06:49 by rosanche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	ft_memset(t_p *p)
+size_t			ft_strlen(const char *str)
 {
-	int		i;
+	size_t	i;
 
-	p->strwidth = ft_strnew(p->width); //free strwidth apres ?ce que je fais deja?
 	i = 0;
-	while (i < p->width)
-	{
-		p->strwidth[i] = ' ';
-		i++;
-	}
-}
-
-void	ft_memsetzero(t_p *p)
-{
-	int		i;
-
-	p->strwidth = ft_strnew(p->width);
-	i = 0;
-	while (i < p->width)
-	{
-		p->strwidth[i] = '0';
-		i++;
-	}
-}
-
-void	ft_memsetpre(t_p *p)
-{
-	int		i;
-
-	// printf("param3456: %s\n", p->param);
-	// ft_putstr_fd(p->param, 1);
-	p->strprecision = ft_strnew(p->precision);
-	// ft_putstr_fd(p->param, 1);
-	//printf("param345: %se\n", p->param);
-	i = 0;
-	//printf("param34: %se\n", p->param);
-	while (i < p->precision)
-	{
-		p->strprecision[i] = '0';
-		i++;
-	}
-}
-
-int		ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
+	if (!str)
 		return (0);
-}
-
-char	*ft_strdup(const char *s1)
-{
-	char	*s2;
-	int		i;
-	int		size;
-
-	size = 0;
-	while (s1[size])
-		size++;
-	if (!(s2 = malloc(sizeof(char) * (size + 1))))
-		return (0);
-	i = 0;
-	while (s1[i])
+	while (str[i] != '\0')
 	{
-		s2[i] = s1[i];
 		i++;
 	}
-	s2[i] = '\0';
-	return (s2);
+	return (i);
+}
+
+unsigned int	ft_size(long long n)
+{
+	int	i;
+
+	i = 0;
+	if (n < 0)
+	{
+		i++;
+		n = -n;
+	}
+	while (n / 10 > 0)
+	{
+		n = n / 10;
+		i++;
+	}
+	return (i + 1);
+}
+
+int				ft_atoi(const char *str)
+{
+	int		res;
+	int		negative;
+
+	negative = 1;
+	res = 0;
+	while (*str && ft_isdigit(*str))
+	{
+		res = res * 10 + (*str - 48);
+		++str;
+	}
+	str--;
+	return ((int)res * negative);
+}
+
+void			ft_putnbr_fd(int n, int fd, t_p *p)
+{
+	unsigned int nb;
+
+	nb = n;
+	if (n < 0)
+		nb = -n;
+	if (nb >= 10)
+		ft_putnbr_fd(nb / 10, fd, p);
+	ft_putchar_fd(nb % 10 + '0', fd);
+	p->res++;
+}
+
+void			ft_putnbr_u(long long n, int fd, t_p *p)
+{
+	long long nb;
+
+	nb = n;
+	if (n < 0 && n != 4294967295)
+		nb = -n;
+	if (nb >= 10)
+		ft_putnbr_u(nb / 10, fd, p);
+	ft_putchar_fd(nb % 10 + '0', fd);
+	p->res++;
 }

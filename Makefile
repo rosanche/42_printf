@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aguenel <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: rosanche <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/12/16 14:09:25 by aguenel           #+#    #+#              #
-#    Updated: 2019/12/16 14:09:28 by aguenel          ###   ########.fr        #
+#    Created: 2020/01/02 20:45:34 by rosanche          #+#    #+#              #
+#    Updated: 2020/01/02 20:46:07 by rosanche         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,19 +22,20 @@ LDFLAGS=-L.
 
 LDLIBS=-lft
 
-SRC= get_type.c\
-init.c\
+SRC= init.c\
 printf_utils.c\
 printf_utils_1.c\
-printf_utils_2.c\
 printf.c\
 printf_1.c\
-printf_2.c\
-get_type_1.c\
-ft_checkerror.c\
+ft_checkerror.c \
 print_str.c \
 print_char.c \
 print_nbr.c \
+print_x.c \
+print_xx.c \
+print_u.c \
+print_p.c \
+print_percent.c \
 
 
 OBJ=$(SRC:.c=.o)
