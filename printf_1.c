@@ -49,7 +49,11 @@ void	find_flags(t_p *p, va_list *args)
 				p->precision = -1;
 		}
 		else
+		{	
+			if (ft_isdigit((int)p->src[p->i]) == 0)
+				p->lettre = true;
 			p->precision = guess_width(p);
+		}
 	}
 	else if (p->src[p->i] == '0')
 		p->zero = true;
@@ -60,7 +64,7 @@ void	find_flags(t_p *p, va_list *args)
 		p->width = va_arg(*args, int);
 		p->moins = p->width < 0 ? true : p->moins;
 		if (p->width < 0)
-			p->width *= -1;
+			p->width = p->width * -1;
 	}
 }
 

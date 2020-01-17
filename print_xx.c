@@ -12,9 +12,9 @@
 
 #include "printf.h"
 
-void		ft_putnbr_xx(unsigned long n, int fd, t_p *p)
+void		ft_putnbr_xx(unsigned int n, int fd, t_p *p)
 {
-	unsigned long nb;
+	unsigned int nb;
 
 	nb = n;
 	if (n < 0)
@@ -27,11 +27,11 @@ void		ft_putnbr_xx(unsigned long n, int fd, t_p *p)
 
 void		ft_xx(va_list *args, t_p *p)
 {
-	unsigned long		num;
+	unsigned int		num;
 	int					d;
 
 	d = 0;
-	num = va_arg(*args, unsigned long);
+	num = va_arg(*args, unsigned int);
 	if (p->precision > p->width)
 		d = 1;
 	else if (p->precision == 0 && num == 0)

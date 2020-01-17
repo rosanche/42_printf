@@ -33,7 +33,7 @@ int		ft_printf(const char *src, ...)
 	while (p->src[p->i])
 	{
 		init_f(p);
-		if (p->i != 0 && p->src[p->i - 1] == '%' && p->src[p->i - 2] != '%')
+		if ((p->i != 0 && p->src[p->i - 1] == '%'))
 		{
 			p->nb_param = find_flags_and_nbparam(p, &args);
 			ft_print(p, &args);
@@ -43,7 +43,8 @@ int		ft_printf(const char *src, ...)
 			write(1, &p->src[p->i], 1);
 			p->res++;
 		}
-		p->i++;
+		if (p->src[p->i])
+			p->i++;
 	}
 	free(p);
 	return (p->res);

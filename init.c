@@ -23,6 +23,7 @@ t_p		*init_p(const char *src)
 	p->res = 0;
 	p->zero = false;
 	p->moins = false;
+	p->lettre = false;
 	p->width = 0;
 	p->precision = -1;
 	p->etoile = false;
@@ -34,6 +35,7 @@ t_p		*init_p(const char *src)
 	p->b_0 = false;
 	p->bprecision = false;
 	p->params = "cspdiuxX%\0";
+	p->done = false;
 	return (p);
 }
 
@@ -46,6 +48,7 @@ void	*init_f(t_p *p)
 	p->etoile = false;
 	p->pointetoile = false;
 	p->nbrn = false;
+	p->pair = false;
 	p->count = 0;
 	p->nb_param = -1;
 	return (p);

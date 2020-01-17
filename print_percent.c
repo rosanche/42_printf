@@ -18,8 +18,15 @@ void	ft_percent(t_p *p)
 	int		j;
 
 	v = 0;
-	while (p->src[p->i + v] == '%')
+	while (p->src[p->i + v] == '%' && p->src[p->i + v])
 		v++;
+	if (!(v % 2))
+		p->i += v - 1;
+	else
+	{
+		p->i += v;
+		p->pair = true;
+	}
 	v = (v + 1) / 2;
 	p->width--;
 	j = -1;
@@ -32,5 +39,9 @@ void	ft_percent(t_p *p)
 	}
 	if (p->moins)
 		ft_diuxx(p);
-	p->i = p->i + v - 1;
+	if (p->pair && p->src[p->i])
+	{
+		write(1, &p->src[p->i], 1);
+		p->res++;
+	}
 }

@@ -73,9 +73,9 @@ void			ft_putnbr_fd(int n, int fd, t_p *p)
 	p->res++;
 }
 
-void			ft_putnbr_u(long long n, int fd, t_p *p)
+void			ft_putnbr_u(unsigned int n, int fd, t_p *p)
 {
-	long long nb;
+	unsigned int nb;
 
 	nb = n;
 	if (n < 0 && n != 4294967295)
