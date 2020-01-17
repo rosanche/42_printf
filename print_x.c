@@ -44,7 +44,7 @@ void			width_n_precision(t_p *p, int d)
 		if (p->nbrn)
 			ft_putchar_fd('-', 1);
 	}
-	// if (p->precision && !p->moins)
+	if (p->precision && !p->moins)
 		print_smth('0', p->precision, p);
 }
 
