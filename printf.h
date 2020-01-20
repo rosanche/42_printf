@@ -40,6 +40,9 @@ typedef	struct	s_p
 	bool		b_0;
 	char		*params;
 	bool		bprecision;
+	bool		lettre;
+	bool		done;
+	bool		pair;
 }				t_p;
 
 t_p				*init_p(const char *src);
@@ -69,13 +72,13 @@ void			find_flags(t_p *p, va_list *args);
 int				guess_width(t_p *p);
 void			print_smth(char c, int nb, t_p *p);
 int				ft_checkerror(t_p *p);
-void			ft_putnbr_x(unsigned long n, int fd, t_p *p);
-unsigned int	ft_size_x(long long n);
+void			ft_putnbr_x(unsigned int n, int fd, t_p *p);
+unsigned int	ft_size_x(unsigned int n);
 void			width_n_precision(t_p *p, int d);
-void			convert_u(long long nb, t_p *p);
+void			convert_u(unsigned int nb, t_p *p);
 void			ft_percent(t_p *p);
 void			ft_putnstr_fd(char *s, int fd, int size);
 void			ft_putnbr_fd(int n, int fd, t_p *p);
-void			ft_putnbr_u(long long n, int fd, t_p *p);
+void			ft_putnbr_u(unsigned int n, int fd, t_p *p);
 
 #endif

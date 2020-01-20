@@ -36,6 +36,9 @@ t_p		*init_p(const char *src)
 	p->bprecision = false;
 	p->params = "cspdiuxX%\0";
 	p->done = false;
+	p->lettre = false;
+	p->done = false;
+	p->pair = false;
 	return (p);
 }
 
@@ -45,6 +48,7 @@ void	*init_f(t_p *p)
 	p->moins = false;
 	p->width = 0;
 	p->precision = -1;
+	p->bprecision = false;
 	p->etoile = false;
 	p->pointetoile = false;
 	p->nbrn = false;

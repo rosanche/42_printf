@@ -47,6 +47,7 @@ void	ft_u_width(t_p *p, unsigned int num)
 	if ((!p->moins) && (p->zero) && p->precision == -1
 		&& p->width > p->precision && p->bprecision == false)
 	{
+		// print_smth('0', p->width, p);
 		if (p->precision == -1)
 			print_smth('0', p->width, p);
 		else
@@ -59,10 +60,19 @@ void	ft_u_width(t_p *p, unsigned int num)
 		convert_u(num, p);
 		print_smth(' ', p->width, p);
 	}
+	else if (p->zero && p->width < p->precision && !p->bprecision)
+	{
+		p->width -= p->precision > 0 && p->nbrn ? 1 : 0;
+		print_smth('0', p->width, p);
+		if (p->precision != 0)
+			print_smth('0', p->precision, p);
+		if (num != 0 || p->precision != 0)
+			convert_u(num, p);
+	}
 	else
 	{
 		p->width -= p->precision > 0 && p->nbrn ? 1 : 0;
-		print_smth(' ', p->width, p);
+		print_smth(' ', p->width, p);   //--> pb ici om devrait print des 0 pas des ' '
 		if (p->precision != 0)
 			print_smth('0', p->precision, p);
 		if (num != 0 || p->precision != 0)

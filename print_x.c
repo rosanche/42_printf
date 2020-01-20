@@ -34,7 +34,7 @@ void			width_n_precision(t_p *p, int d)
 {
 	if (p->width >= 1)
 	{
-		if ((p->zero) && p->precision != 0 && (d == 1 || p->precision == -1))
+		if ((p->zero) && p->precision != 0 && (d == 1 || p->precision == -1) && !p->moins)
 			print_smth('0', p->width, p);
 		else
 			print_smth(' ', p->width, p);
